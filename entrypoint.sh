@@ -48,6 +48,7 @@ find ./graphics \
 ORIGIN=$(pwd)
 cd $BUILD_DIR
 
+echo $PWD
 echo "Creating release file: $PACKAGE_FILE"
 zip -r $PACKAGE_FILE $PACKAGE_FULL_NAME
 
