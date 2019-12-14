@@ -49,7 +49,7 @@ ORIGIN=$(pwd)
 cd $BUILD_DIR
 
 echo "Creating release file: $PACKAGE_FILE"
-zip -rq $PACKAGE_FILE $PACKAGE_FULL_NAME
+zip -r $PACKAGE_FILE $PACKAGE_FULL_NAME
 
 cd $ORIGIN
 mkdir dist/
