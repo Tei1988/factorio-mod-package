@@ -1,8 +1,6 @@
 #!/bin/sh
 
-echo ${PWD}
 cd $INPUT_MOD_BASE_DIR
-echo ${PWD}
 
 export PACKAGE_NAME=$(jq -r .name info.json)
 export PACKAGE_VERSION=$(jq -r .version info.json)
@@ -39,29 +37,21 @@ find . \
   \) \
   -exec cp --parents \{\} $OUTPUT_DIR \;
 
-find . \
-  -iname '*.lua' -type f -not -path \"./.*/*\" \
-  -exec cp --parents \{\} $OUTPUT_DIR \;
+for F in $(find . -iname '*.lua' -type f -not -path \"./.*/*\"); do
+  cp --parents $F $OUTPUT_DIR;
+done
 
 find ./graphics \
   -iname '*.png' -type f \
   -exec cp --parents \{\} $OUTPUT_DIR \;
 
-
-echo ${PWD}
-
 ORIGIN=$(pwd)
 cd $BUILD_DIR
 
-echo ${PWD}
-
 echo "Creating release file: $PACKAGE_FILE"
-zip -rq $PACKAGE_FILE $PACKAGE_FULL_NAME
+zip -r $PACKAGE_FILE $PACKAGE_FULL_NAME
 
-
-echo ${PWD}
 cd $ORIGIN
-echo ${PWD}
 
 mkdir dist/
 
