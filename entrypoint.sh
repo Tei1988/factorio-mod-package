@@ -37,9 +37,7 @@ find . \
   \) \
   -exec cp --parents \{\} $OUTPUT_DIR \;
 
-find . \
-  -iname '*.lua' -type f -not -path \"./.*/*\" \
-  -exec cp --parents \{\} $OUTPUT_DIR \;
+find . -iname '*.lua' -type f | xargs cp --parents ${OUTPUT_DIR}
 
 find ./graphics \
   -iname '*.png' -type f \
