@@ -1,5 +1,7 @@
 #!/bin/sh
 
+cd $INPUT_MOD_BASE_DIR
+
 export PACKAGE_NAME=$(jq -r .name info.json)
 export PACKAGE_VERSION=$(jq -r .version info.json)
 export PACKAGE_FULL_NAME=$PACKAGE_NAME\_$PACKAGE_VERSION
@@ -55,3 +57,4 @@ mkdir dist/
 cp $BUILD_DIR/$PACKAGE_FILE dist
 
 echo "$PACKAGE_FILE ready at dist/$PACKAGE_FILE"
+echo "::set-output name=asset_path::${INPUT_MOD_BASE_DIR}/dist/${PACKAGE_FILE}"
