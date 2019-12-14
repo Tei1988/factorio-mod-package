@@ -19,31 +19,32 @@ echo 'Copying package files'
 rm -rf .build dist
 mkdir -p $OUTPUT_DIR
 
-find . \
+for F in $(find . \
   -type d \
   \( \
   -iname 'locale' -o \
   -iname 'sounds' \
-  \) \
-  -exec cp -r --parents \{\} $OUTPUT_DIR \;
+  \)); do
+  cp -r --parents $F $OUTPUT_DIR;
+done
 
-find . \
-  -type f \
-  \( \
+for F in $(find . \
   -iname '*.md' -o \
   -iname '*.txt' -o \
   -iname 'info.json' -o \
-  -iname 'thumbnail.png' \
-  \) \
-  -exec cp --parents \{\} $OUTPUT_DIR \;
-
-for F in $(find . -iname '*.lua' -type f -not -path \"./.*/*\"); do
+  -iname 'thumbnail.png'); do
   cp --parents $F $OUTPUT_DIR;
 done
 
-find ./graphics \
-  -iname '*.png' -type f \
-  -exec cp --parents \{\} $OUTPUT_DIR \;
+for F in $(find . \
+  -iname '*.lua' -type f -not -path \"./.*/*\"); do
+  cp --parents $F $OUTPUT_DIR;
+done
+
+for F in $(find ./graphics \
+  -iname '*.png' -type f); do
+  cp --parents $F $OUTPUT_DIR;
+done
 
 ORIGIN=$(pwd)
 cd $BUILD_DIR
